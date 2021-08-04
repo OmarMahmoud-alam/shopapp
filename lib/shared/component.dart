@@ -39,7 +39,7 @@ Widget defaultFormField({
   Function? onSubmit,
   InputBorder border = const OutlineInputBorder(),
   ValueChanged<String>? onChange,
-  Function? onTap,
+  GestureTapCallback? onTap,
   bool isPassword = false,
   required FormFieldValidator<String> validate,
   String? label,
@@ -58,9 +58,7 @@ Widget defaultFormField({
         onSubmit!(s);
       },
       onChanged: onChange,
-      onTap: () {
-        onTap!();
-      },
+      onTap: onTap,
       validator: validate,
       decoration: InputDecoration(
         labelText: label ?? null,
