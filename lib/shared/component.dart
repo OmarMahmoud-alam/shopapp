@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_conditional_rendering/conditional.dart';
 //import 'web_H.dart';
 //import '../colab/cubit.dart';
 
@@ -36,7 +37,7 @@ Widget defaultButton({
 Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType type,
-  Function? onSubmit,
+  ValueChanged<String>? onSubmit,
   InputBorder border = const OutlineInputBorder(),
   ValueChanged<String>? onChange,
   GestureTapCallback? onTap,
@@ -54,9 +55,7 @@ Widget defaultFormField({
       keyboardType: type,
       obscureText: isPassword,
       enabled: isClickable,
-      onFieldSubmitted: (s) {
-        onSubmit!(s);
-      },
+      onFieldSubmitted: onSubmit,
       onChanged: onChange,
       onTap: onTap,
       validator: validate,
@@ -79,6 +78,21 @@ Widget defaultFormField({
         border: border,
       ),
     );
+Future<bool?> toast({
+  required String txt,
+  color = Colors.red,
+  time = 1,
+}) {
+  return Fluttertoast.showToast(
+      msg: txt,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: time,
+      backgroundColor: color,
+      textColor: Colors.white,
+      fontSize: 16.0);
+}
+
 /* 
 Widget buildTaskItem(Map model, context) => Dismissible(
       key: Key(model['id'].toString()),
@@ -152,7 +166,23 @@ Widget buildTaskItem(Map model, context) => Dismissible(
         );
       },
     ); */
-/* 
+Widget conditionbuild({context, required Widget widget, Condition = true}) {
+  return Conditional.single(
+      context: context,
+      conditionBuilder: (BuildContext context) => Condition,
+      widgetBuilder: (context) => widget,
+      fallbackBuilder: (BuildContext context) =>
+          Center(child: CircularProgressIndicator()));
+}
+
+/*
+       return Conditional.single(
+      context: context,
+      conditionBuilder: (BuildContext context) =>Condition,
+      widgetBuilder: (BuildContext context) => widget,
+      fallbackBuilder: (BuildContext context) =>
+          Center(child: CircularProgressIndicator()));
+}/*
 Widget tasksBuilder({
   @required List<Map> tasks,
 }) =>
@@ -280,6 +310,6 @@ Widget articleBuilder(list, {context}) {
       fallbackBuilder: (BuildContext context) =>
           Center(child: CircularProgressIndicator()));
 }
- */
+ */*/
 Future<dynamic> navigateto({required context, required Widget widget}) async =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
