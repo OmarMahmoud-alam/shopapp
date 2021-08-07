@@ -8,6 +8,8 @@ import 'loginModel.dart';
 class CubitLogin extends Cubit<LoginState> {
   CubitLogin() : super(InitLogState());
   late ShopLogin user;
+  static CubitLogin get(context) => BlocProvider.of(context);
+  bool ispassword = false;
   void userLogin({
     required String email,
     required String password,
@@ -33,8 +35,7 @@ class CubitLogin extends Cubit<LoginState> {
   }
 
 //eng.omar.control@gmail.com
-  static CubitLogin get(context) => BlocProvider.of(context);
-  bool ispassword = false;
+
   void changevisiblepassword() {
     ispassword = !ispassword;
     emit(ChangepasswordState());

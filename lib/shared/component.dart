@@ -166,10 +166,11 @@ Widget buildTaskItem(Map model, context) => Dismissible(
         );
       },
     ); */
-Widget conditionbuild({context, required Widget widget, Condition = true}) {
+
+Widget conditionbuild({context, required Widget widget, condition = true}) {
   return Conditional.single(
       context: context,
-      conditionBuilder: (BuildContext context) => Condition,
+      conditionBuilder: (BuildContext context) => condition,
       widgetBuilder: (context) => widget,
       fallbackBuilder: (BuildContext context) =>
           Center(child: CircularProgressIndicator()));

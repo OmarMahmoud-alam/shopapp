@@ -5,6 +5,8 @@ import 'package:shopapp/loginRegist/cubitlogin.dart';
 
 import 'package:shopapp/loginRegist/loginState.dart';
 import 'package:shopapp/shared/component.dart';
+import 'package:shopapp/shared/shareddata.dart';
+import 'package:shopapp/userdashboard/userdashboard.dart';
 
 // ignore: must_be_immutable
 class Login extends StatelessWidget {
@@ -19,6 +21,17 @@ class Login extends StatelessWidget {
       child: BlocConsumer<CubitLogin, LoginState>(listener: (context, state) {
         if (state is ShopLoginSuccessState) {
           if (state.userdata.status) {
+            Cachehelp.savestring(
+                    key: 'token', value: state.userdata.data!.token ?? 'null')
+                .then((value) {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserDash(),
+                  ),
+                  (route) => false);
+            });
+
             toast(txt: 'login sucess', color: Colors.green);
           } else
             toast(txt: state.userdata.message, color: Colors.red);

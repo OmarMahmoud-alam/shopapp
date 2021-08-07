@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopapp/loginRegist/login.dart';
+import 'package:shopapp/shared/shareddata.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class BoardingModel {
@@ -49,12 +50,7 @@ class _MainsState extends State<Mains> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Login(),
-                  ),
-                  (route) => false);
+              submit();
             },
             child: Text('skip'),
           )
@@ -98,12 +94,7 @@ class _MainsState extends State<Mains> {
                           duration: Duration(milliseconds: 750),
                           curve: Curves.easeInOut);
                     } else {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Login(),
-                          ),
-                          (route) => false);
+                      submit();
                     }
                   },
                   child: Icon(Icons.arrow_right_alt_outlined),
@@ -117,6 +108,19 @@ class _MainsState extends State<Mains> {
         ),
       ),
     );
+  }
+
+  void submit() async {
+    Cachehelp.savebool(key: 'onboarding', value: true).then((value) {
+      if (value) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Login(),
+            ),
+            (route) => false);
+      }
+    });
   }
 
   Widget buildBoard(context, boardcont) => Column(
