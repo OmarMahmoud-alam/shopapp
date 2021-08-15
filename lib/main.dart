@@ -29,8 +29,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  Widget startwidget;
-  MyApp({required this.startwidget});
+  final Widget startwidget;
+  MyApp({required this.startwidget, bool? board});
 
   // This widget is the root of your application.
   @override

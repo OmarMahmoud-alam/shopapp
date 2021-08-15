@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopapp/shared/shareddata.dart';
+//import 'package:shopapp/shared/shareddata.dart';
 
 import './cuboituser.dart';
 import 'cuboituserState.dart';
