@@ -22,7 +22,7 @@ void main() async {
     else
       startwidget = UserDash();
   }
-  print(board);
+
   runApp(MyApp(
     startwidget: startwidget,
   ));

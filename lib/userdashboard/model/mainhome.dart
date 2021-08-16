@@ -34,6 +34,32 @@ class MainProduct extends StatelessWidget {
                   color: Colors.white,
                   padding: EdgeInsetsDirectional.all(10.0),
                   child: Text(
+                    'cateogrey',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                    ),
+                  ),
+                ),
+                Productcubit.get(context).cate == null
+                    ? CircularProgressIndicator()
+                    : SizedBox(
+                        height: 110,
+                        child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => cattt(
+                                Productcubit.get(context).cate!.items[index]),
+                            separatorBuilder: (context, index) => SizedBox(
+                                  width: 5,
+                                ),
+                            itemCount:
+                                Productcubit.get(context).cate!.items.length),
+                      ),
+                Container(
+                  width: double.infinity,
+                  color: Colors.white,
+                  padding: EdgeInsetsDirectional.all(10.0),
+                  child: Text(
                     'Products',
                     style: TextStyle(
                       fontSize: 30.0,
@@ -166,4 +192,22 @@ class MainProduct extends StatelessWidget {
           ),
       fallbackBuilder: (BuildContext context) =>
           Center(child: CircularProgressIndicator()));
+  Widget cattt(item) => Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          Image(
+            image: NetworkImage(item.image),
+            width: 150,
+            height: 100,
+          ),
+          Container(
+              padding: EdgeInsets.all(5.0),
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.6),
+              ),
+              width: 150,
+              height: 30,
+              child: Center(child: Text(item.name)))
+        ],
+      );
 }

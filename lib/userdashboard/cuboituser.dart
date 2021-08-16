@@ -4,6 +4,7 @@ import 'package:shopapp/shared/dio_H.dart';
 import 'package:shopapp/shared/shareddata.dart';
 import 'package:shopapp/userdashboard/cuboituserState.dart';
 import 'package:shopapp/userdashboard/model/categro.dart';
+import 'package:shopapp/userdashboard/model/module/cateogrymodel.dart';
 import 'package:shopapp/userdashboard/model/module/favouritemodel.dart';
 import 'model/module/usermodel.dart';
 
@@ -42,23 +43,6 @@ class Productcubit extends Cubit<UserShopState> {
       print(error.toString());
       emit(UserFailState());
     });
-    loaddata2();
-  }
-
-  void loaddata2() {
-    emit(UserFavouriteloadingShopState());
-    DioHelper2.getData(
-      url: 'favorites',
-      token: Cachehelp.getdata(key: 'token'),
-    ).then((value) {
-      print(value.data.toString());
-      ourfav = Favouritedata.fromjson(value.data);
-
-      emit(UserFavouriteSucessShopState());
-    }).onError((error, stackTrace) {
-      print(error.toString());
-      emit(UserFavouriteFailState());
-    });
   }
 
   void changefavourite({required int id, required index}) {
@@ -72,8 +56,9 @@ class Productcubit extends Cubit<UserShopState> {
       ChangedFavoriproduct pp = ChangedFavoriproduct.fromjson(value.data);
 
       products[index].infav = !products[index].infav;
+      print(pp.prodict!.name);
       if (pp.message == 'Deleted Successfully') {
-        ourfav!.products.remove(pp.prodict!.id);
+        ourfav!.products.remove(pp.prodict!);
       } else {
         ourfav!.products.add(pp.prodict!);
       }
@@ -81,6 +66,19 @@ class Productcubit extends Cubit<UserShopState> {
     }).catchError((e) {
       print(e);
       emit(FavouriteFailState());
+    });
+  }
+
+  Cateogrey? cate;
+  void loadcato() {
+    emit(CategorloadingShopState());
+    DioHelper2.getData(url: 'categories').then((value) {
+      print(value.data);
+      cate = Cateogrey.fromjson(value.data);
+      emit(CategorSucessShopState());
+    }).catchError((e) {
+      print(e.toString());
+      emit(CategorFailState());
     });
   }
 }

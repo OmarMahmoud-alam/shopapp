@@ -10,7 +10,9 @@ class UserDash extends StatelessWidget {
   Widget build(BuildContext context) {
     //Productcubit shopcubit = Productcubit.get(context);
     return BlocProvider(
-        create: (BuildContext context) => Productcubit()..loaddata(),
+        create: (BuildContext context) => Productcubit()
+          ..loaddata()
+          ..loadcato(),
         child: BlocConsumer<Productcubit, UserShopState>(
           listener: (context, status) {},
           builder: (BuildContext context, state) {
